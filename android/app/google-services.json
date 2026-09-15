@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "1015092528863",
+    "project_id": "wildwatch-82abc",
+    "storage_bucket": "wildwatch-82abc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015092528863:android:b5b4dcfd525fec88b5cb6a",
+        "android_client_info": {
+          "package_name": "com.silversentry.sentry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015092528863-6uktqq9lfru6blvk4pdomrhbofhdrk1a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsq5vIKHCCslWxwzwkXnpFygA7tzrPQ2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015092528863-6uktqq9lfru6blvk4pdomrhbofhdrk1a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015092528863:android:79e275e5094113acb5cb6a",
+        "android_client_info": {
+          "package_name": "com.wildwatch.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015092528863-3p6sple4aj59hsc9usk125oj9l1v6d92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wildwatch.app",
+            "certificate_hash": "c483c22d191bc7718f9eb64de0b6d5376baee0f8"
+          }
+        },
+        {
+          "client_id": "1015092528863-6uktqq9lfru6blvk4pdomrhbofhdrk1a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsq5vIKHCCslWxwzwkXnpFygA7tzrPQ2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015092528863-6uktqq9lfru6blvk4pdomrhbofhdrk1a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
