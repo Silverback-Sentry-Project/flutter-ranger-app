@@ -32,7 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final user = currentUserNotifier.value;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SilverBack Sentry'),
+        title: const Text(
+          'SilverBack Sentry',
+          style: TextStyle(fontFamily: 'Magilio', fontWeight: FontWeight.bold),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
