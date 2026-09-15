@@ -3,9 +3,10 @@ enum IncidentType {
   sighting,
   emergency,
   poaching,
-  snare;
+  snare,
+  sos;
 
-  String get wire => name;
+  String get wire => name == 'sos' ? 'SOS' : name;
 
   static IncidentType fromWire(String? value) {
     switch (value?.toLowerCase()) {
@@ -17,6 +18,8 @@ enum IncidentType {
         return IncidentType.poaching;
       case 'snare':
         return IncidentType.snare;
+      case 'sos':
+        return IncidentType.sos;
       default:
         return IncidentType.sighting;
     }
@@ -31,9 +34,11 @@ enum IncidentType {
 enum IncidentStatus {
   open,
   inProgress,
-  resolved;
+  resolved,
+  cancelled;
 
-  String get wire => name == 'inProgress' ? 'in_progress' : name;
+  String get wire =>
+      name == 'inProgress' ? 'in_progress' : name;
 
   static IncidentStatus fromWire(String? value) {
     switch (value?.toLowerCase()) {
@@ -41,6 +46,8 @@ enum IncidentStatus {
         return IncidentStatus.inProgress;
       case 'resolved':
         return IncidentStatus.resolved;
+      case 'cancelled':
+        return IncidentStatus.cancelled;
       default:
         return IncidentStatus.open;
     }

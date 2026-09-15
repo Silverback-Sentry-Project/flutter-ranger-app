@@ -87,6 +87,8 @@ abstract class IncidentRepository {
 
   Future<Either<Failure, void>> assignToSelf(String id);
 
+  Future<Either<Failure, void>> withdraw(String id);
+
   Future<SyncResult> syncPending();
 
   void startObservingRemoteChanges();

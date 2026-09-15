@@ -88,6 +88,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - assets/data/parks.geojson
+
+  fonts:
+    - family: Magilio
+      fonts:
+        - asset: assets/fonts/magilio.ttf
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

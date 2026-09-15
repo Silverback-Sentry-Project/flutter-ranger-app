@@ -351,6 +351,8 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
         return 'Poaching';
       case IncidentType.snare:
         return 'Snare';
+      case IncidentType.sos:
+        return 'SOS';
     }
   }
 }

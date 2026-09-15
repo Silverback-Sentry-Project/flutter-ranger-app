@@ -7,6 +7,7 @@ import '../../core/models/user.dart';
 import '../../features/alerts/presentation/pages/alerts_screen.dart';
 import '../../features/auth/presentation/pages/auth_screen.dart';
 import '../../features/dashboard/presentation/pages/dashboard_screen.dart';
+import '../../features/dashboard/presentation/pages/history_placeholder_screen.dart';
 import '../../features/feed/presentation/pages/article_detail_screen.dart';
 import '../../features/feed/presentation/pages/feed_screen.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
@@ -17,6 +18,7 @@ import '../../features/incidents/presentation/pages/report_incident_screen.dart'
 import '../../features/incidents/presentation/pages/report_submitted_screen.dart';
 import '../../features/notifications/presentation/pages/notifications_screen.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
+import '../../features/sos/presentation/pages/sos_screen.dart';
 import '../../features/tracking/presentation/pages/ranger_tracking_screen.dart';
 
 final ValueNotifier<User?> currentUserNotifier = ValueNotifier(null);
@@ -108,7 +110,9 @@ final router = GoRouter(
     GoRoute(
       path: '/report',
       parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => const ReportIncidentScreen(),
+      builder: (context, state) => ReportIncidentScreen(
+        draftId: state.uri.queryParameters['draftId'],
+      ),
     ),
     GoRoute(
       path: '/report/camera',
@@ -136,6 +140,16 @@ final router = GoRouter(
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const AlertsScreen(),
     ),
+    GoRoute(
+      path: '/sos',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const SosScreen(),
+    ),
+    GoRoute(
+      path: '/history',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const HistoryPlaceholderScreen(),
+    ),
   ],
 );
 
@@ -161,7 +175,14 @@ class SilverBackSentryShell extends StatelessWidget {
     final currentIndex = navigationShell.currentIndex;
 
     return Scaffold(
-      body: navigationShell,
+      body: Stack(
+        children: [
+          navigationShell,
+          _SosFloatingButton(
+            onTap: () => context.push('/sos'),
+          ),
+        ],
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
@@ -249,6 +270,88 @@ class _SilverBackSentryTab extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _SosFloatingButton extends StatefulWidget {
+  final VoidCallback onTap;
+  const _SosFloatingButton({required this.onTap});
+
+  @override
+  State<_SosFloatingButton> createState() => _SosFloatingButtonState();
+}
+
+class _SosFloatingButtonState extends State<_SosFloatingButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1400),
+  )..repeat();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Positioned(
+      right: 16,
+      bottom: 72,
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, _) {
+          final t = _controller.value;
+          return GestureDetector(
+            onTap: widget.onTap,
+            child: SizedBox(
+              width: 56,
+              height: 56,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Transform.scale(
+                    scale: 1 + 0.65 * t,
+                    child: Container(
+                      width: 56,
+                      height: 56,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: scheme.error.withValues(
+                          alpha: 0.5 * (1 - t),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 56,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: scheme.error,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.3),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.sos,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

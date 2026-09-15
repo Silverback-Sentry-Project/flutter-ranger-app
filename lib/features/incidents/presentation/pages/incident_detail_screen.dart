@@ -353,6 +353,8 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
     switch (status) {
       case 'resolved':
         return AppThemeColors.success;
+      case 'cancelled':
+        return AppThemeColors.destructive;
       case 'inProgress':
         return AppThemeColors.instaBlue;
       default:
@@ -363,6 +365,7 @@ class _IncidentDetailScreenState extends State<IncidentDetailScreen> {
   IconData _typeIcon(String type) {
     switch (type) {
       case 'emergency':
+      case 'SOS':
         return Icons.sos;
       case 'poaching':
         return Icons.not_accessible;

@@ -196,6 +196,34 @@ class IncidentRepositoryImpl implements IncidentRepository {
   }
 
   @override
+  Future<Either<Failure, void>> withdraw(String id) async {
+    try {
+      final existing = await getById(id);
+      if (existing == null) return left(CacheFailure('Incident not found'));
+      final updated = existing.copyWith(
+        status: IncidentStatus.cancelled,
+        syncStatus: SyncStatus.pendingUpdate,
+        lastModified: DateTime.now().millisecondsSinceEpoch,
+      );
+      _updateLocal(updated);
+      try {
+        final uploaded = await _remoteDataSource.upsert(updated);
+        _updateLocal(uploaded);
+        final bridge = await _laravelBridge.postIncidentEvent(uploaded, 'update');
+        if (bridge.isRight()) {
+          _updateLocal(uploaded.copyWith(
+            syncStatus: SyncStatus.synced,
+            syncedAt: DateTime.now().toIso8601String(),
+          ));
+        }
+      } catch (_) {}
+      return right(null);
+    } catch (e) {
+      return left(ServerFailure('$e'));
+    }
+  }
+
+  @override
   Future<SyncResult> syncPending() => _syncMutex.run(() async {
         int succeeded = 0;
         int failed = 0;
